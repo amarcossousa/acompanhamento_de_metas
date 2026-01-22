@@ -3,29 +3,29 @@ from pathlib import Path
 import pytest
 
 
-def test_arquivo_de_dados_existe():
+@pytest.mark.parametrize("encoding", ["utf-8-sig", "latin1"])
+def test_csv_pode_ser_lido_com_varios_encodings(encoding):
+    """
+    Garante que o CSV pode ser lido com diferentes encodings comuns.
+    Isso evita falhas caso o arquivo venha de fontes variadas.
+    """
     caminho = Path("data/acompanhamento.csv")
     assert caminho.exists(), "❌ O arquivo de dados não foi encontrado"
-
-
-def test_csv_pode_ser_lido_com_configuracao_tolerante():
-    """
-    Garante que o CSV real pode ser lido usando uma estratégia robusta,
-    mesmo com aspas quebradas e separadores inconsistentes.
-    """
-    caminho = Path("data/acompanhamento.csv")
 
     try:
         df = pd.read_csv(
             caminho,
-            encoding="latin1",     # encoding real mais comum nesses casos
+            encoding=encoding,
             sep=None,              # pandas detecta o separador
             engine="python",       # parser mais tolerante
             quoting=3,             # ignora aspas mal formadas
             on_bad_lines="skip"    # ignora linhas quebradas
         )
     except Exception as e:
-        pytest.fail(f"❌ Falha ao ler CSV mesmo em modo tolerante: {e}")
+        pytest.fail(f"❌ Falha ao ler CSV com encoding {encoding}: {e}")
 
-    assert not df.empty, "❌ DataFrame está vazio após leitura tolerante"
-    assert len(df.columns) >= 5, "❌ Número inesperado de colunas"
+    # Validações adicionais
+    assert isinstance(df, pd.DataFrame), "❌ O resultado não é um DataFrame"
+    assert not df.empty, "❌ DataFrame está vazio após leitura"
+    assert len(df.columns) >= 5, f"❌ Número inesperado de colunas: {len(df.columns)}"
+    assert df.shape
