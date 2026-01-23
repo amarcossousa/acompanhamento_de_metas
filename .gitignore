@@ -9,3 +9,4 @@ data/metas.csv
 # Ignorar relatórios gerados
 reports/*.pdf
 reports/*.png
+.env
