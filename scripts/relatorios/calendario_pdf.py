@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 from datetime import datetime
 from fpdf import FPDF
+from scripts.relatorios.coletivas import carregar_coletivas
 
 # Classe personalizada para rodapé fixo
 class RelatorioPDF(FPDF):
@@ -33,6 +34,7 @@ def gerar_relatorio_pdf(arquivo_csv_execucao: str, mes: int, ano: int, saida_pdf
         errors="coerce"
     )
     df = df[(df["DataExecucao"].dt.month == mes) & (df["DataExecucao"].dt.year == ano)]
+    coletivas = carregar_coletivas("data/coletivas.csv", mes, ano)
 
     # Carregar metas (fixo na pasta data)
     metas = pd.read_csv("data/metas.csv", sep=";", encoding="utf-8")
@@ -79,13 +81,29 @@ def gerar_relatorio_pdf(arquivo_csv_execucao: str, mes: int, ano: int, saida_pdf
                     pdf.set_fill_color(230, 230, 230)
                     pdf.cell(cell_w, cell_h, "", border=1, fill=True)
                 else:
+                    # visitas
                     v = visitas[(visitas["Criado por"] == tecnico) & (visitas["DataExecucao"] == dia)]
-                    qtd = int(v["Visitas"].values[0]) if not v.empty else 0
+                    qtd_visitas = int(v["Visitas"].values[0]) if not v.empty else 0
 
-                    # cor da célula
-                    if qtd == 0:
+                    # coletivas
+                    c = coletivas[
+                        (coletivas["Criado por"] == tecnico) &
+                        (coletivas["DataColetiva"] == dia)
+                    ]
+
+                    if not c.empty:
+                        # cria lista de textos do tipo "2 Reunião Comunitária"
+                        textos_coletivas = [
+                            f"{int(row['qtd'])} {row['ATIVIDADE PRÉ-FIXADA > ATIVIDADES']}"
+                            for _, row in c.iterrows()
+                        ]
+                    else:
+                        textos_coletivas = []
+
+                    # cor da célula (você pode escolher como quer colorir)
+                    if qtd_visitas == 0 and not textos_coletivas:
                         pdf.set_fill_color(240, 240, 240)
-                    elif qtd < 5:
+                    elif qtd_visitas > 0 and not textos_coletivas:
                         pdf.set_fill_color(180, 255, 180)
                     else:
                         pdf.set_fill_color(255, 180, 180)
@@ -99,10 +117,57 @@ def gerar_relatorio_pdf(arquivo_csv_execucao: str, mes: int, ano: int, saida_pdf
 
                     pdf.set_xy(x, y + cell_h/2)
                     pdf.set_font("Arial", "", 9)
-                    texto_visitas = f"{qtd} visitas" if qtd > 0 else ""
-                    pdf.cell(cell_w, cell_h/2, texto_visitas, align="C")
+
+                    texto = ""
+                    if qtd_visitas > 0:
+                        texto += f"{qtd_visitas} visitas"
+
+                    if textos_coletivas:
+                        if texto != "":
+                            texto += "\n"
+                        texto += "\n".join(textos_coletivas)
+
+                    # Ajuste automático de fonte quando o texto for grande
+                    if len(texto) > 40:
+                        pdf.set_font("Arial", "", 7)
+                    else:
+                        pdf.set_font("Arial", "", 9)
+
+                    # ---------- CALCULAR TEXTO DA CÉLULA ----------
+                    texto = ""
+                    if qtd_visitas > 0:
+                        texto += f"{qtd_visitas} visitas"
+
+                    if textos_coletivas:
+                        if texto != "":
+                            texto += "\n"
+                        texto += "\n".join(textos_coletivas)
+
+                    # ---------- AJUSTAR FONTE PARA CABER ----------
+                    pdf.set_font("Arial", "", 8)
+
+                    # Calcula quantas linhas o texto vai usar (aprox.)
+                    linhas = texto.count("\n") + 1
+                    altura_necessaria = linhas * 4  # 4 é o tamanho da linha com fonte 8
+
+                    # Garante uma altura mínima
+                    altura = max(altura_necessaria, 12)
+
+                    # ---------- DESENHAR A CÉLULA ----------
+                    pdf.rect(x, y, cell_w, cell_h, style="F")
+                    pdf.rect(x, y, cell_w, cell_h)
+
+                    pdf.set_xy(x, y)
+                    pdf.set_font("Arial", "B", 10)
+                    pdf.cell(cell_w, 6, str(dia), align="C")
+
+                    pdf.set_xy(x, y + 6)
+                    pdf.set_font("Arial", "", 8)
+                    pdf.multi_cell(cell_w, 4, texto, align="C")
+
 
                     pdf.set_xy(x + cell_w, y)
+
             pdf.ln(cell_h)
 
         # Resumo de desempenho
