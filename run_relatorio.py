@@ -1,16 +1,28 @@
-from scripts.relatorios.calendario_pdf import gerar_relatorio_pdf
+import pandas as pd
+from scripts.relatorios.calendario_pdf import RelatorioPDF, gerar_relatorio_pdf
+from scripts.relatorios.consolidado import gerar_relatorio_consolidado
 
-# Caminho para sua planilha exportada do Coletum
-arquivo_csv = "data/visitas.csv"
+def main():
+    arquivo_visitas = "data/visitas.csv"
+    mes = 1   # exemplo: Janeiro
+    ano = 2026
+    saida_pdf = "reports/relatorio.pdf"
 
-# Mês e ano que você quer testar
-mes = 1   # Janeiro
-ano = 2026
+    pdf = RelatorioPDF()
 
-# Saída do PDF
-saida_pdf = "reports/visitas_tecnicos_jan2026.pdf"
+    # Relatório calendário
+    gerar_relatorio_pdf(arquivo_visitas, mes, ano, saida_pdf, pdf)
 
-# Executa a função
-gerar_relatorio_pdf(arquivo_csv, mes, ano, saida_pdf)
+    # Carregar dados
+    visitas_df = pd.read_csv(arquivo_visitas, sep=";", encoding="utf-8")
+    metas_df = pd.read_csv("data/metas.csv", sep=";", encoding="utf-8")
 
-print("✅ Relatório gerado com sucesso:", saida_pdf)
+    # Consolidado (agora passando mes e ano também)
+    gerar_relatorio_consolidado(visitas_df, metas_df, pdf, mes, ano)
+
+    # Salvar PDF final
+    pdf.output(saida_pdf)
+
+
+if __name__ == "__main__":
+    main()

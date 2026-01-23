@@ -20,7 +20,9 @@ def nomear_relatorio(saida_pdf: str) -> str:
     novo_nome = f"{base}_{timestamp}{ext}"
     return os.path.join(pasta, novo_nome)
 
-def gerar_relatorio_pdf(arquivo_csv_execucao: str, mes: int, ano: int, saida_pdf: str):
+def gerar_relatorio_pdf(arquivo_csv_execucao: str, mes: int, ano: int, saida_pdf: str, pdf: FPDF):
+    # não crie pdf = RelatorioPDF() aqui
+    # use o pdf que veio como parâmetro
     os.makedirs(os.path.dirname(saida_pdf), exist_ok=True)
 
     # Carregar dados de execução
