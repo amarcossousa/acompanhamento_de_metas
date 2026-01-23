@@ -1,3 +1,11 @@
 .venv/
 __pycache__/
 *.pyc
+# Ignorar dados sensíveis
+# Ignorar dados reais
+data/visista.csv
+data/metas.csv
+
+# Ignorar relatórios gerados
+reports/*.pdf
+reports/*.png
