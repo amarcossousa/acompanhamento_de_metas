@@ -1,3 +1,4 @@
+VERSÃO ATUAL: v1.0 (estrutura congelada)
 # 📊 Relatório de Acompanhamento de Metas
 
 Este projeto gera relatórios em PDF para acompanhamento das metas de visitas e atividades coletivas realizadas por técnicos.

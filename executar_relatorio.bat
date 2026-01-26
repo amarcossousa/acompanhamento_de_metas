@@ -1,6 +1,6 @@
 @echo off
 REM Ativa o ambiente virtual
-call env\Scripts\activate
+call venv\Scripts\activate
 
 REM Executa o script Python
 python run_relatorio.py

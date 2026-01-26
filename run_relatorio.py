@@ -6,8 +6,8 @@ import os
 
 def main():
     arquivo_visitas = "data/visitas.csv"
-    mes = 10   # exemplo: Janeiro
-    ano = 2025
+    mes = 1  # exemplo: Janeiro
+    ano = 2026
 
     # nome temporário
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

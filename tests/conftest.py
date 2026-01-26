@@ -1,5 +1,16 @@
 import pytest
 import pandas as pd
+import pytest
+from scripts.ingestao.coletum_client import ColetumClient
+
+
+@pytest.fixture
+def mock_client(client):
+    """
+    Alias exigido por alguns testes.
+    """
+    return client
+
 
 @pytest.fixture
 def df_exemplo():
@@ -13,3 +24,4 @@ def df_exemplo():
         "DADOS DE EXECUÇÃO > Município",
         "Relato > Relato geral do acompanhamento"
     ])
+
