@@ -9,7 +9,7 @@ def test_csv_pode_ser_lido_com_varios_encodings(encoding):
     Garante que o CSV pode ser lido com diferentes encodings comuns.
     Isso evita falhas caso o arquivo venha de fontes variadas.
     """
-    caminho = Path("data/acompanhamento.csv")
+    caminho = Path("data/visitas.csv")
     assert caminho.exists(), "❌ O arquivo de dados não foi encontrado"
 
     try:
