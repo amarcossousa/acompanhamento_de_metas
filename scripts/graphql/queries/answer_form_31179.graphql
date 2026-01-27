@@ -1,0 +1,45 @@
+query {
+  answer(formId: 31179) {
+    answer {
+      dadosDeExecucao484334 {
+        siglanucleocontrato484335
+        data484336
+        nomeDoaTecnicoa484337
+        cpf484338
+        territorio484339
+        municipio484340
+        comunidade484341
+      }
+
+      atividadePre_fixada484342 {
+        atividades484343
+        totalDePartcipantes484344
+      }
+
+      relatoDaAtividadeRealizada484345
+      ocorrencias484346
+      facilitadoresAs484348
+      dataDoPlanejamento484349
+      coordenadorAEducomunicadora484350
+      cpf484351
+
+      objetivos613723
+      conteudos613722
+      metodologia613721
+      dataDoConviteSetaf613724
+      formatoDoEnvioDoConvite613725
+    }
+
+    metaData {
+      userId
+      userName
+      createdAtSource
+      friendlyId
+      createdAt
+      createdAtDevice
+      createdAtCoordinates
+      updatedAt
+      updatedAtCoordinates
+    }
+  }
+}

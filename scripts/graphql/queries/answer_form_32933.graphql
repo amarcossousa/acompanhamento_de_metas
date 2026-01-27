@@ -1,0 +1,96 @@
+query {
+  answer(formId: 32933) {
+    answer {
+      dadosDeExecucao800970 {
+        siglanucleocontrato800971
+        nomeDoaTecnicoaResponsavel800972
+        cpfDoaTecnicoaResponsavel800973
+        dataDaRealizacaoDaAtividade800974
+        localizacaoDaUpf800975
+        territorio800976
+        municipio800977
+        comunidade800978
+
+        resultadoDasRecomendacoesTecnicasAnteriores800979 {
+          visitaN800980
+          dataDaVisitaAnterior800981
+          resultadoDasRecomendacoesTecnicasAnteriores800982
+        }
+      }
+
+      cpfResponsavelParaIdentificacaoDoGrupoFamiliar800983 {
+        nome800984
+        cpfDoTitularDoGrupoFamiliar800985
+      }
+
+      objetivos800986 {
+        codigoDoObjetivo800987
+        objetivoDescontinuado800988
+        justificativaObjetivoDescontinuado800989
+
+        resultadoChave800990
+        resultadoChave800991
+        resultadoChave800992
+
+        iniciativas800993 {
+          codigoDaIniciativa800994
+          iniciativaDescontinuada800995
+          justificativaIniciativaDescontinuada800996
+          situacaoDaIniciativa800997
+          relatoSobreAIniciativa800998
+          novasIniciativas800999
+
+          novasIniciativas801000 {
+            oQueFazerTarefa801001
+            comoFazer801002
+            deQualRecursoPrecisa801003
+            qualEntregaCaracterizaARealizacaoDaTarefa801004
+          }
+        }
+      }
+
+      novosObjetivos801005
+      novosObjetivos801006 {
+        objetivo801007
+        dataDoInicioDoObjetivo801008
+        dataDeConclusaoDoObjetivo801009
+        aQualMetaDaChamadaOObjetivoEstaRelacionado801010
+
+        descrevaAMedidaEAUnidadeAdequada801011
+        valorInicial801012
+        valorFinal801013
+
+        descrevaAMedidaEAUnidadeAdequada801014
+        valorInicial801015
+        valorFinal801016
+
+        descrevaAMedidaEAUnidadeAdequada801017
+        valorInicial801018
+        valorFinal801019
+
+        iniciativas801020 {
+          oQueFazerTarefa801021
+          comoFazer801022
+          deQualRecursoPrecisa801023
+          qualEntregaCaracterizaARealizacaoDaTarefa801024
+        }
+      }
+
+      relato801025 {
+        relatoGeralDoAcompanhamento801026
+      }
+    }
+
+    metaData {
+      userId
+      userName
+      createdAtSource
+      friendlyId
+      createdAt
+      createdAtDevice
+      createdAtCoordinates
+      updatedAt
+      updatedAtCoordinates
+    }
+  }
+}
