@@ -8,6 +8,7 @@ env
 # Ignorar dados reais
 data/visitas.csv
 data/metas.csv
+data/coletivas.csv
 
 # Ignorar relatórios gerados
 reports/*.pdf

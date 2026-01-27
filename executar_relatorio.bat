@@ -7,14 +7,14 @@ REM  GERADOR DE RELATORIOS
 REM ===============================
 
 REM Caminho da venv (ajuste se necessário)
-if not exist "env\Scripts\activate.bat" (
+if not exist "venv\Scripts\activate.bat" (
     echo ERRO: Ambiente virtual nao encontrado.
     echo Verifique se a pasta "env" existe.
     pause
     exit /b
 )
 
-call env\Scripts\activate.bat
+call venv\Scripts\activate.bat
 
 :MENU
 cls
