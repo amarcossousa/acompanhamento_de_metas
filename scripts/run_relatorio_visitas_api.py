@@ -1,3 +1,4 @@
+import os
 import sys
 from datetime import datetime
 from scripts.ingestao.visitas_api_calendario import gerar_relatorio_visitas
@@ -9,6 +10,8 @@ def main():
     if len(sys.argv) >= 3:
         mes = int(sys.argv[1])
         ano = int(sys.argv[2])
+
+    os.makedirs("reports", exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     pdf_path = f"reports/relatorio_visitas_api_{mes:02d}{ano}_{timestamp}.pdf"
