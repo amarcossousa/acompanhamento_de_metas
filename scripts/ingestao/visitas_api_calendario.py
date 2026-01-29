@@ -233,18 +233,20 @@ def gerar_relatorio_visitas(mes: int, ano: int, pdf_path: str = "reports/relator
     pdf.output(pdf_path)
     print(f"✅ PDF gerado: {pdf_path}")
     
-def gerar_calendario_no_pdf(df_api, mes, ano, pdf: RelatorioPDF):
-    """
-    Desenha o calendário no PDF, usando o dataframe já filtrado.
-    Não salva o PDF (isso é feito no script principal).
-    """
+def gerar_relatorio_visitas(mes: int, ano: int, pdf_path: str = "reports/relatorio_visitas_api.pdf"):
+    df = buscar_visitas_api(mes, ano)
 
+    if df.empty:
+        print("❌ Nenhuma atividade encontrada na API.")
+        return
+
+    pdf = RelatorioPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
 
-    tecnicos = df_api["tecnico"].unique()
+    tecnicos = df["tecnico"].unique()
 
     for tecnico in tecnicos:
-        df_tec = df_api[df_api["tecnico"] == tecnico]
+        df_tec = df[df["tecnico"] == tecnico]
 
         pdf.add_page()
         pdf.set_font("Arial", "B", 16)
@@ -307,16 +309,26 @@ def gerar_calendario_no_pdf(df_api, mes, ano, pdf: RelatorioPDF):
                     texto += f"{visitas} visitas"
 
                 if coletivas > 0:
-                    if texto != "":
+                    if texto:
                         texto += "\n"
 
-                    atividades = v[v["tipo"] == "coletiva"]["atividade"].tolist()
-                    atividades_texto = "\n".join([f"{a}" for a in atividades])
+                    atividades_series = v[v["tipo"] == "coletiva"]["atividade"]
 
-                    if coletivas == 1:
-                        texto += f"1 {atividades_texto}"
-                    else:
-                        texto += f"{coletivas} coletivas\n{atividades_texto}"
+                    atividades_series = (
+                        atividades_series
+                        .fillna("")
+                        .astype(str)
+                        .str.strip()
+                    )
+
+                    atividades_contagem = atividades_series.value_counts()
+
+                    atividades_texto = "\n".join(
+                        [f"{qtd} {nome}" for nome, qtd in atividades_contagem.items()]
+                    )
+
+                    texto += atividades_texto
+
 
                 pdf.set_xy(x, y + 6)
                 pdf.set_font("Arial", "", 8)
@@ -325,3 +337,6 @@ def gerar_calendario_no_pdf(df_api, mes, ano, pdf: RelatorioPDF):
                 pdf.set_xy(x + cell_w, y)
 
             pdf.ln(cell_h)
+
+    pdf.output(pdf_path)
+    print(f"✅ PDF gerado: {pdf_path}")
