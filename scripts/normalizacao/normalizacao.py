@@ -33,3 +33,27 @@ def normalizar_coletivas(registros: list) -> pd.DataFrame:
         })
 
     return pd.DataFrame(linhas)
+
+def normalizar_visitas_com_tecnico(registros: list) -> pd.DataFrame:
+    """
+    Normaliza os registros da API de visitas incluindo o técnico responsável.
+    Usa normalizar_visitas como base, preservando o contrato atual.
+    """
+
+    # Reaproveita a normalização mínima já existente
+    df = normalizar_visitas(registros)
+
+    tecnicos = []
+    for item in registros:
+        # Ajuste a chave abaixo se o nome real for diferente na API
+        tecnico = (
+            item.get("responsavel")
+            or item.get("tecnico")
+            or item.get("usuario")
+            or "Não informado"
+        )
+        tecnicos.append(tecnico)
+
+    df["tecnico"] = tecnicos
+    return df
+

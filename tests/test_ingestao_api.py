@@ -6,7 +6,7 @@ from unittest.mock import patch, Mock
 from scripts.ingestao.coletum_client import ColetumClient
 from scripts.ingestao.visitas_api import buscar_visitas
 from scripts.ingestao.coletivas_api import buscar_coletivas
-from scripts.ingestao.normalizacao import normalizar_visitas, normalizar_coletivas
+from scripts.normalizacao.normalizacao import normalizar_visitas, normalizar_coletivas
 
 
 # ---------------------------

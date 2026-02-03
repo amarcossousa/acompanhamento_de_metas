@@ -14,7 +14,7 @@ def main():
     os.makedirs("reports", exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    pdf_path = f"reports/relatorio_visitas_api_{mes:02d}{ano}_{timestamp}.pdf"
+    pdf_path = f"reports/relatorio_visitas_{mes:02d}{ano}_{timestamp}.pdf"
 
     print(f"📊 Gerando relatório para {mes:02d}/{ano}")
     gerar_relatorio_visitas(mes, ano, pdf_path)
