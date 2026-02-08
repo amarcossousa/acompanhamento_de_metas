@@ -1,74 +1,148 @@
+<h1 align="center">
 📊 Sistema Integrado de Acompanhamento de Metas
-Este projeto é uma solução de automação em Python desenvolvida para monitorar a produtividade de equipes técnicas. O sistema gera relatórios visuais em PDF detalhados, permitindo a análise de desempenho através de calendários de atividades e gráficos comparativos de metas.
-A grande vantagem desta versão é a sua flexibilidade de ingestão de dados: o sistema pode operar tanto offline (lendo arquivos CSV locais) quanto online (buscando dados em tempo real via integração com API).
-🚀 Funcionalidades Principais
-• Ingestão Híbrida de Dados:
-    ◦ Modo Arquivo: Processamento de planilhas CSV exportadas manualmente.
-    ◦ Modo API: Conexão direta para busca automática de dados de execução atualizados.
-• Visualização Estratégica:
-    ◦ Calendário mensal com status visual (mapa de calor/cores) da produtividade diária.
-    ◦ Gráficos de barras comparando "Realizado vs. Meta".
-    ◦ Linha de tendência de média diária.
-• Relatórios Automatizados: Geração de PDFs prontos para impressão com timestamp único, paginação e rodapé.
-• Execução Simplificada: Scripts .bat para execução em ambiente Windows com um clique.
-📂 Estrutura do Projeto
-A organização do código separa a lógica de execução, configuração e testes:
+</h1>
 
-.
-├── config/                 # Credenciais da API e parâmetros do sistema
-├── scripts/                # Módulos de processamento (ETL via CSV ou API) e geração de gráficos
-├── data/                   # Pasta para depósito dos arquivos .csv (se usar Modo Arquivo)
-├── tests/                  # Testes unitários
-├── run_relatorio.py        # Script principal (Entry point)
-├── gerar_relatorio_visitas.bat # Executável Windows (Automação)
-├── requirements.txt        # Dependências do projeto
-└── README.md               # Documentação
+<p align="center">
+Automação em Python para monitoramento de produtividade e geração de relatórios gerenciais em PDF.
+</p>
 
-📍 Modos de Operação e Configuração
-O sistema pode ser alimentado de duas formas. Escolha a que se adapta ao seu fluxo de trabalho:
-Opção A: Integração via API (Automático)
-Ideal para dados em tempo real. O script conecta-se diretamente à fonte de dados.
-• Certifique-se de que as credenciais de acesso e endpoints estão configurados corretamente dentro da pasta config/.
-• Neste modo, o sistema ignora a pasta data/ e busca as visitas e atividades do período estipulado.
-Opção B: Importação via CSV (Manual)
-Ideal para análises pontuais ou dados históricos offline. Salve os arquivos na pasta data/ seguindo a formatação rigorosa abaixo:
-Arquivo
-	
-Colunas Obrigatórias (Separador ;)
-	
-Formato Data
-visitas.csv
-	
-DADOS DE EXECUÇÃO > Data da realização da atividade, Criado por
-	
-dd/mm/yyyy
-coletivas.csv
-	
-Dados de Execução > Data, Criado por, ATIVIDADE PRÉ-FIXADA > ATIVIDADES
-	
-dd/mm/yyyy
-metas.csv
-	
-Tecnico, Meta Mensal
-	
-N/A
-🛠️ Instalação e Execução
-Pré-requisitos
-• Python 3.8+ instalado.
-• Instalação das bibliotecas:
-Como Gerar os Relatórios
-1. Via Windows (Usuário Final)
-Para facilitar a rotina, utilize os arquivos de lote. Basta clicar duas vezes em:
-• gerar_relatorio_visitas.bat
-2. Via Linha de Comando (Desenvolvedor)
-Para alterar parâmetros como mês/ano de referência ou forçar o modo de operação (API/CSV), edite as variáveis no início do arquivo run_relatorio.py e execute:
+<p align="center">
 
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-green)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+
+</p>
+
+---
+
+## 📌 Visão Geral
+
+Sistema desenvolvido para consolidar dados operacionais e gerar relatórios estratégicos de acompanhamento de metas de equipes técnicas.
+
+Permite análise visual de desempenho por meio de:
+
+- Calendário mensal de execução
+- Indicadores de produtividade
+- Comparação entre metas e resultados
+- Gráficos automáticos
+
+---
+
+## 🚀 Funcionalidades Principais
+
+### Ingestão Híbrida de Dados
+
+- **Modo CSV (Offline)**  
+  Processamento de planilhas exportadas manualmente.
+
+- **Modo API (Online)**  
+  Integração direta com fonte de dados para atualização automática.
+
+---
+
+### Visualização Estratégica
+
+- Calendário mensal com mapa visual de produtividade
+- Gráficos de barras:
+  - Realizado vs Meta
+- Linha de tendência de média diária
+
+---
+
+### Relatórios Automatizados
+
+- Geração de PDF profissional
+- Paginação automática
+- Rodapé padronizado
+- Nome único com timestamp
+
+---
+
+### Execução Simplificada
+
+- Execução via script `.bat`
+- Execução via terminal Python
+
+---
+
+## 📂 Estrutura do Projeto
+
+acompanhamento_de_metas/
+│
+├── config/ # Credenciais da API e parâmetros do sistema
+├── scripts/ # ETL de dados (CSV/API) e geração de gráficos
+├── data/ # Arquivos CSV (modo offline)
+├── tests/ # Testes automatizados
+│
+├── run_relatorio.py # Script principal (Entry Point)
+├── gerar_relatorio_visitas.bat
+├── requirements.txt
+
+---
+
+## ⚙️ Modos de Operação
+
+### Integração via API (Automático)
+
+- Configure credenciais e endpoints na pasta:
+- O sistema buscará dados automaticamente.
+
+---
+
+### Importação via CSV (Manual)
+
+Salvar arquivos na pasta:
+Separador obrigatório:
+
+| Arquivo | Colunas Obrigatórias | Formato Data |
+|--------|----------------------|-------------|
+| visitas.csv | DADOS DE EXECUÇÃO > Data da realização da atividade, Criado por | dd/mm/yyyy |
+| coletivas.csv | Dados de Execução > Data, Criado por, ATIVIDADE PRÉ-FIXADA > ATIVIDADES | dd/mm/yyyy |
+| metas.csv | Tecnico, Meta Mensal | N/A |
+
+---
+
+## 🛠️ Instalação
+
+Pré-requisito:
+
+- Python 3.8+
+
+Instalar dependências:
+
+```bash
+pip install -r requirements.txt
+
+
+▶️ Execução
+Usuário Final (Windows)
+Clique duas vezes em:
+gerar_relatorio_visitas.bat
+Desenvolvedor (Linha de Comando)
+Edite parâmetros no início do:
+run_relatorio.py
+Execute:
 python run_relatorio.py
 
-⚙️ Tecnologias
-• Linguagem: Python (96.5%)
-• Automação: Batchfile (3.5%)
-• Bibliotecas: Pandas (manipulação de dados), ReportLab/Fpdf (geração de PDF), Requests (Integração API).
+🧰 Tecnologias Utilizadas
+Python
+Pandas
+ReportLab / FPDF
+Requests
+Batchfile
 
---------------------------------------------------------------------------------
-Projeto mantido por amarcossousa.
+🗺️ Roadmap
+Interface gráfica
+Dashboard Web
+Integração com banco de dados
+Comparativo entre períodos
+
+👤 Autor
+Antonio Marcos Sousa
+
+📄 Licença
+MIT
+
+
