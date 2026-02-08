@@ -14,3 +14,35 @@ data/coletivas.csv
 reports/*.pdf
 reports/*.png
 .env
+
+.env
+.env.*
+data/raw/
+data/consolidated/
+data/**/*.parquet
+reports/
+*.pdf
+*.csv
+env/
+venv/
+__pycache__/
+*.pyc
+# Ambiente
+env/
+venv/
+__pycache__/
+*.pyc
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# Dados gerados
+data/raw/
+data/consolidated/
+data/**/*.parquet
+*.csv
+
+# Relatórios
+reports/
+*.pdf

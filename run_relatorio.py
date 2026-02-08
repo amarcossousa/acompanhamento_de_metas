@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from datetime import datetime
 
-from scripts.relatorios.calendario_pdf import RelatorioPDF, gerar_relatorio_pdf
+from scripts.relatorios.consolidado_visitas import RelatorioPDF, gerar_relatorio_pdf
 from scripts.relatorios.consolidado import gerar_relatorio_consolidado
 
 

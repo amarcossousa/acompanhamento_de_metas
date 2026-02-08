@@ -13,9 +13,9 @@ echo ==========================================
 echo.
 
 REM Verifica se a venv existe
-if not exist "venv\Scripts\python.exe" (
+if not exist "env\Scripts\python.exe" (
     echo ❌ Ambiente virtual não encontrado!
-    echo 👉 Esperado em: venv\Scripts\python.exe
+    echo 👉 Esperado em: env\Scripts\python.exe
     echo.
     pause
     exit /b
@@ -38,7 +38,7 @@ echo ⏳ Aguarde...
 echo.
 
 REM Executa usando o python da venv
-venv\Scripts\python.exe -m scripts.run_relatorio_visitas_api %MES% %ANO%
+env\Scripts\python.exe -m scripts.run_relatorio_visitas_api %MES% %ANO%
 
 echo.
 echo ✅ Relatório finalizado!
