@@ -4,6 +4,11 @@ import requests
 from datetime import datetime
 from dotenv import load_dotenv
 
+from scripts.core.query_loader import carregar_query
+
+QUERY_VISITAS = carregar_query("answer_form_32933.graphql")
+QUERY_COLETIVAS = carregar_query("answer_form_31179.graphql")
+
 load_dotenv()
 
 ENDPOINT = os.getenv("COLETUM_ENDPOINT")
@@ -11,23 +16,8 @@ TOKEN = os.getenv("COLETUM_TOKEN")
 
 
 def buscar_coletivas_api(mes: int, ano: int) -> pd.DataFrame:
-    query = """
-    {
-      answer(formId: 31179) {
-        answer {
-          dadosDeExecucao484334 {
-            data484336
-          }
-          atividadePre_fixada484342 {
-            atividades484343
-          }
-          metaData {
-            userName
-          }
-        }
-      }
-    }
-    """
+    query = carregar_query("answer_form_31179.graphql")
+
 
     url = f"{ENDPOINT}?query={query}&token={TOKEN}"
 

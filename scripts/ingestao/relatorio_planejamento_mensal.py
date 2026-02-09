@@ -6,37 +6,15 @@ from fpdf import FPDF
 
 from scripts.ingestao.coletum_client import ColetumClient
 
+from scripts.core.query_loader import carregar_query
+
+QUERY_VISITAS = carregar_query("answer_form_32933.graphql")
+QUERY_COLETIVAS = carregar_query("answer_form_31179.graphql")
+
 load_dotenv()
 
 ENDPOINT = os.getenv("COLETUM_ENDPOINT")
 TOKEN = os.getenv("COLETUM_TOKEN")
-
-QUERY_VISITAS = """
-{answer(formId:32933){
-  answer{
-    dadosDeExecucao800970{
-      nomeDoaTecnicoaResponsavel800972
-      dataDaRealizacaoDaAtividade800974
-    }
-  }
-}}
-"""
-
-QUERY_COLETIVAS = """
-{answer(formId:31179){
-  answer{
-    dadosDeExecucao484334{
-      nomeDoaTecnicoa484337
-      data484336
-      comunidade484341
-    }
-    atividadePre_fixada484342{
-      atividades484343
-    }
-  }
-}}
-"""
-
 
 def normalizar_nome(nome):
     if not nome:
@@ -189,4 +167,4 @@ def gerar_pdf(mes, ano):
 
 
 if __name__ == "__main__":
-    gerar_pdf(1, 2026)
+    gerar_pdf(2, 2026)

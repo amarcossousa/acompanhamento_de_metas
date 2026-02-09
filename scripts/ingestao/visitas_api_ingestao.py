@@ -1,6 +1,10 @@
 import os
 from dotenv import load_dotenv
 from scripts.ingestao.coletum_client import ColetumClient
+from scripts.core.query_loader import carregar_query
+
+QUERY_VISITAS = carregar_query("answer_form_32933.graphql")
+QUERY_COLETIVAS = carregar_query("answer_form_31179.graphql")
 
 # ===============================
 # CONFIGURAÇÃO
@@ -19,21 +23,6 @@ if not COLETUM_ENDPOINT or not COLETUM_TOKEN:
 # QUERY VISITAS (FORM 32933)
 # ===============================
 
-QUERY_VISITAS = """
-{
-  answer(formId: 32933) {
-    answer {
-      dadosDeExecucao800970 {
-        dataDaRealizacaoDaAtividade800974
-        municipio800977
-      }
-    }
-    metaData {
-      userName
-    }
-  }
-}
-"""
 
 
 # ===============================

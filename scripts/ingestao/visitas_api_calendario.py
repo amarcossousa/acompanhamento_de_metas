@@ -5,6 +5,10 @@ from datetime import datetime
 from fpdf import FPDF
 from dotenv import load_dotenv
 from scripts.ingestao.coletum_client import ColetumClient
+from scripts.core.query_loader import carregar_query
+
+QUERY_VISITAS = carregar_query("answer_form_32933.graphql")
+QUERY_COLETIVAS = carregar_query("answer_form_31179.graphql")
 
 load_dotenv()
 
@@ -22,37 +26,6 @@ class RelatorioPDF(FPDF):
             f"Gerado em {datetime.now().strftime('%d/%m/%Y %H:%M')} - Página {self.page_no()}",
             align="R"
         )
-
-
-QUERY_VISITAS = """
-{answer(formId:32933){
-  answer{
-    dadosDeExecucao800970{
-      dataDaRealizacaoDaAtividade800974
-    }
-  }
-  metaData{
-    userName
-  }
-}}
-"""
-
-
-QUERY_COLETIVAS = """
-{answer(formId:31179){
-  answer{
-    dadosDeExecucao484334{
-      data484336
-    }
-    atividadePre_fixada484342{
-      atividades484343
-    }
-  }
-  metaData{
-    userName
-  }
-}}
-"""
 
 
 def _extrair_visitas(resposta):
