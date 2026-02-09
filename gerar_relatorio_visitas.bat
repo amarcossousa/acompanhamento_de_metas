@@ -34,7 +34,7 @@ if "%ANO%"=="" set ANO=2026
 
 echo.
 echo ▶ Gerando relatório para %MES%/%ANO%
-echo ⏳ Aguarde...
+echo ⏳ Aguarde. Buscando dados do coletum API...
 echo.
 
 REM Executa usando o python da venv
