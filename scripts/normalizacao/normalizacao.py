@@ -1,4 +1,6 @@
 import pandas as pd
+import re
+import unicodedata
 
 
 def normalizar_visitas(registros: list) -> pd.DataFrame:
@@ -56,4 +58,23 @@ def normalizar_visitas_com_tecnico(registros: list) -> pd.DataFrame:
 
     df["tecnico"] = tecnicos
     return df
+
+
+def normalizar_chave(texto):
+
+    if not texto:
+        return ""
+
+    texto = texto.lower()
+
+    texto = unicodedata.normalize('NFKD', texto)
+    texto = texto.encode('ascii', 'ignore').decode('ascii')
+
+    texto = re.sub(r'\(.*?\)', '', texto)
+    texto = re.sub(r'[^a-z0-9 ]', '', texto)
+
+    texto = re.sub(r'\s+', ' ', texto).strip()
+
+    return texto
+
 
